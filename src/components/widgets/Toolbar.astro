@@ -1,0 +1,179 @@
+---
+// Toolbar.astro
+---
+
+<div class="toolbar" id="toolbar">
+    <div class="toolbar-section colors-section">
+        <!-- Colors Header -->
+        <div class="section-header colors-rollout">
+            <span>Colors</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                <path d="M0 6.5H13" stroke="var(--static2)" stroke-width="1.2"/>
+                <path d="M6.5 0L6.5 13" stroke="var(--static2)" stroke-width="1.2"/>
+            </svg>
+        </div>
+
+        <!-- Color Tools -->
+        <div class="color-tools">
+            <div class="color-picker">
+                <input type="color" id="textColor" value="#000000">
+                <label for="textColor">Text</label>
+            </div>
+
+            <div class="color-picker">
+                <input type="color" id="backgroundColor" value="#ffffff">
+                <label for="backgroundColor">Background</label>
+            </div>
+
+            <div class="color-picker">
+                <input type="color" id="primaryButton" value="#4685FF">
+                <label for="primaryButton">Primary Button</label>
+            </div>
+
+            <div class="color-picker">
+                <input type="color" id="secondaryButton" value="#F2F2F2">
+                <label for="secondaryButton">Secondary Button</label>
+            </div>
+
+            <div class="color-picker">
+                <input type="color" id="accent" value="#FFB084">
+                <label for="accent">Accent</label>
+            </div>
+
+            <button class="toolbar-button" id="randomize">
+                <span>Randomize</span>
+                <i class="icon-dice"></i>
+            </button>
+
+            <button class="toolbar-button" id="export">
+                <span>Export</span>
+                <i class="icon-download"></i>
+            </button>
+
+            <button class="toolbar-button" id="share">
+                <span>Share</span>
+                <i class="icon-share"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="toolbar-divider"></div>
+
+    <div class="toolbar-section fonts-section">
+        <!-- Fonts Header -->
+        <div class="section-header fonts-rollout">
+            <span>Fonts</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                <path d="M0 6.5H13" stroke="var(--static2)" stroke-width="1.2"/>
+                <path d="M6.5 0L6.5 13" stroke="var(--static2)" stroke-width="1.2"/>
+            </svg>
+            <span class="new-badge">New!</span>
+        </div>
+
+        <!-- Font Tools -->
+        <div class="font-tools">
+            <div class="font-selector">
+                <button class="font-button" id="headingFonts">
+                    <span>Headings</span>
+                    <i class="icon-chevron-down"></i>
+                </button>
+                <input type="file" id="headingFontUpload" accept=".ttf,.otf,.woff,.woff2" hidden>
+            </div>
+
+            <div class="font-selector">
+                <button class="font-button" id="textFonts">
+                    <span>Text</span>
+                    <i class="icon-chevron-down"></i>
+                </button>
+                <input type="file" id="textFontUpload" accept=".ttf,.otf,.woff,.woff2" hidden>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Toolbar functionality
+    const toolbar = {
+        init() {
+            this.setupColorPickers();
+            this.setupButtons();
+            this.setupFontSelectors();
+        },
+
+        setupColorPickers() {
+            document.querySelectorAll('.color-picker input').forEach(picker => {
+                picker.addEventListener('change', (e) => {
+                    const color = e.target.value;
+                    const type = e.target.id;
+                    this.updateColor(type, color);
+                });
+            });
+        },
+
+        setupButtons() {
+            // Randomize
+            document.getElementById('randomize')?.addEventListener('click', () => {
+                this.randomizeColors();
+            });
+
+            // Export
+            document.getElementById('export')?.addEventListener('click', () => {
+                this.exportColors();
+            });
+
+            // Share
+            document.getElementById('share')?.addEventListener('click', () => {
+                this.shareColors();
+            });
+        },
+
+        setupFontSelectors() {
+            // Font upload handling
+            ['heading', 'text'].forEach(type => {
+                const uploadInput = document.getElementById(`${type}FontUpload`);
+                uploadInput?.addEventListener('change', (e) => {
+                    this.handleFontUpload(e, type);
+                });
+            });
+        },
+
+        // Implement color update logic
+        updateColor(type, color) {
+            // Update CSS variables or state based on color changes
+            document.documentElement.style.setProperty(`--${type}`, color);
+        },
+
+        // Implement randomize logic
+        randomizeColors() {
+            // Generate random colors and update
+        },
+
+        // Implement export logic
+        exportColors() {
+            // Export current color scheme
+        },
+
+        // Implement share logic
+        shareColors() {
+            // Generate and copy shareable link
+        },
+
+        // Implement font upload logic
+        handleFontUpload(event, type) {
+            const file = event.target.files[0];
+            if (file) {
+                // Handle font file upload
+            }
+        }
+    };
+
+    // Initialize toolbar
+    document.addEventListener('DOMContentLoaded', () => {
+        toolbar.init();
+    });
+</script>
+
+<style>
+    /* Import main toolbar styles */
+    @import '../../assets/styles/toolbar.css';
+</style>
